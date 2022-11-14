@@ -140,7 +140,7 @@ export default class Customer extends Vue {
     try {
       // eslint-disable-next-line quote-props
       const res = await getAllCustomer(
-        { skip: skip, limit: this.pageSize, 'user_id': this.currentUserId, 'created_begin': this.create_at[0], 'created_end': this.create_at[1] }
+        { skip: skip, limit: this.pageSize }
       )
       this.customerList = (res as any).data.data.items as any
       this.totalPage = Number((res as any).data.data.info.items_count)
