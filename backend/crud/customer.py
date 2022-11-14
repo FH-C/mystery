@@ -1,3 +1,4 @@
+import json
 from datetime import date, timedelta
 from typing import List, Any
 from sqlalchemy.orm import Session
@@ -5,6 +6,7 @@ from sqlalchemy.orm import Session
 from crud.base import CRUDBase
 from model import SessionLocal
 from model.customer import Customer
+from utils.json_encoder import AlchemyEncoder
 
 
 class CRUDCustomer(CRUDBase):
@@ -63,7 +65,7 @@ class CRUDCustomer(CRUDBase):
             self.model.create_at >= 1668315600,
             self.model.create_at < 1668355200
         ).all()
-        return lst
+        return json.dumps(lst, cls=AlchemyEncoder)
 
 
 customer_crud = CRUDCustomer(Customer)
