@@ -26,7 +26,9 @@ class CRUDCustomer(CRUDBase):
         db_obj.got_mark += 1
         db_obj.real_total_mark += 1
         d = str(date.today())
-        db_obj.daily_got_mark[d] -= 1
+        temp = db_obj.daily_got_mark.copy()
+        temp[d] -= 1
+        db_obj.daily_got_mark = temp
         db.commit()
         db.refresh(db_obj)
         return True
@@ -36,7 +38,9 @@ class CRUDCustomer(CRUDBase):
         db_obj.got_mark -= 1
         db_obj.real_total_mark -= 1
         d = str(date.today())
-        db_obj.daily_got_mark[d] -= 1
+        temp = db_obj.daily_got_mark.copy()
+        temp[d] -= 1
+        db_obj.daily_got_mark = temp
         db.commit()
         db.refresh(db_obj)
         return True
@@ -61,8 +65,8 @@ class CRUDCustomer(CRUDBase):
 
     def set_days(self, db: Session, days):
         lst = db.query(self.model).filter(
-            self.model.days == days,
-            self.model.create_at >= 1668355200,
+            self.model.days == 1,
+            # self.model.create_at >= 1668355200,
             # self.model.create_at < 1668355200
         ).all()
         for item in lst:
@@ -73,10 +77,10 @@ class CRUDCustomer(CRUDBase):
                     if item.daily_got_mark is None:
                         item.daily_got_mark = {}
                     temp = item.daily_got_mark.copy()
-                    if i == 0:
-                        temp[str(date.today() + timedelta(days=i))] = item.total_mark
-                    else:
-                        temp[str(date.today() + timedelta(days=i))] = 0
+                    # if i == 0:
+                    temp[str(date.today() + timedelta(days=i))] = item.got_mark
+                    # else:
+                    #     temp[str(date.today() + timedelta(days=i))] = 0
                     # else:
 
                     # temp['2022-11-15'] = 0
