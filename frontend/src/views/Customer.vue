@@ -144,8 +144,8 @@ export default class Customer extends Vue {
           skip: skip,
           limit: this.pageSize,
           userId: this.currentUserId,
-          createdBegin: Math.floor(this.createAt[0].getTime() / 1000),
-          createdEnd: Math.floor(this.createAt[1].getTime() / 1000)
+          createdBegin: Math.floor(this.createAt[0]?.getTime() / 1000) || undefined,
+          createdEnd: Math.floor(this.createAt[1]?.getTime() / 1000) || undefined
         }
       )
       this.customerList = (res as any).data.data.items as any
