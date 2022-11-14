@@ -68,9 +68,9 @@ def restart_task(db):
 def list_customer(db):
     skip = request.args.get('skip', 0)
     limit = request.args.get('limit', 20)
-    user_id_param = request.args.get('user_id', None)
-    created_begin = request.args.get('created_begin', None)
-    created_end = request.args.get('created_end', None)
+    user_id_param = request.args.get('userId', None)
+    created_begin = request.args.get('createdBegin', None)
+    created_end = request.args.get('createdEnd', None)
     try:
         user_id = get_jwt_identity()
         user: User = user_crud.get(db, user_id)

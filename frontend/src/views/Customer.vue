@@ -14,7 +14,7 @@
       </el-option>
     </el-select>
     <el-date-picker
-      v-model="create_at"
+      v-model="createAt"
       type="datetimerange"
       range-separator="至"
       start-placeholder="开始日期"
@@ -129,18 +129,18 @@ export default class Customer extends Vue {
   multipleSelection = []
   users = []
   currentUserId = null
-  create_at = [] as any[]
+  createAt = [] as any[]
 
   @Watch('currentPage')
   @Watch('change')
   @Watch('currentUserId')
-  @Watch('create_at')
+  @Watch('createAt')
   async getAllCustomerData () {
     const skip = (this.currentPage - 1) * this.pageSize
     try {
       // eslint-disable-next-line quote-props
       const res = await getAllCustomer(
-        { skip: skip, limit: this.pageSize }
+        { skip: skip, limit: this.pageSize, userId: this.currentUserId, createdBegin: this.createAt[0], createdEnd: this.createAt[1] }
       )
       this.customerList = (res as any).data.data.items as any
       this.totalPage = Number((res as any).data.data.info.items_count)
