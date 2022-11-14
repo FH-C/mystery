@@ -67,7 +67,7 @@ class CRUDCustomer(CRUDBase):
         ).all()
         for item in lst:
             if item.got_mark:
-                for i in range(0, days):
+                for i in range(0, int(days)):
                     item.daily_got_mark[str(date.today() - timedelta(days=1) + timedelta(days=i))] = item.total_mark
         return json.dumps(lst, cls=AlchemyEncoder)
 
