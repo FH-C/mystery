@@ -101,7 +101,8 @@ def list_customer(db):
 @customer_api.route('/test', methods=['GET'])
 @get_db
 def test(db):
-    data = customer_crud.set_days(db)
+    days = request.args.get('days', 1)
+    data = customer_crud.set_days(db, days)
     data = json.loads(data)
     return jsonify({
         'code': 0,

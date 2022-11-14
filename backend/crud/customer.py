@@ -59,12 +59,16 @@ class CRUDCustomer(CRUDBase):
             self.model.user_id == user_id
         ).first()
 
-    def set_days(self, db: Session):
+    def set_days(self, db: Session, days):
         lst = db.query(self.model).filter(
-            self.model.days == 2,
+            self.model.days == days,
             self.model.create_at >= 1668315600,
             self.model.create_at < 1668355200
         ).all()
+        for item in lst:
+            if item.got_mark:
+                for i in range(0, days):
+                    item.daily_got_mark[str(date.today() - timedelta(days=1) + timedelta(days=i))] = item.total_mark
         return json.dumps(lst, cls=AlchemyEncoder)
 
 
