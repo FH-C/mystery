@@ -74,9 +74,9 @@ class CRUDCustomer(CRUDBase):
                         item.daily_got_mark = {}
                     temp = item.daily_got_mark.copy()
                     if i == 0:
-                        temp['daily_got_mark'][str(date.today() + timedelta(days=i))] = temp['total_mark']
+                        temp[str(date.today() + timedelta(days=i))] = item.total_mark
                     else:
-                        temp['daily_got_mark'][str(date.today() + timedelta(days=i))] = 0
+                        temp[str(date.today() + timedelta(days=i))] = 0
                     # else:
 
                     # temp['2022-11-15'] = 0
