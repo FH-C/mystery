@@ -33,7 +33,7 @@
         :formatter="dateFormat">
       </el-table-column>
       <el-table-column
-        prop="got_mark"
+        prop="real_total_mark"
         label="已刷分数">
       </el-table-column>
       <el-table-column
@@ -156,9 +156,9 @@ export default class Customer extends Vue {
       return
     }
     this.$message.success({
-      message: '一共' + this.multipleSelection.reduce((totalMark: number, item: any) => totalMark + item.total_mark, 0) + '分'
+      message: '一共' + this.multipleSelection.reduce((totalMark: number, item: any) => totalMark + item.real_total_mark, 0) + '分'
     })
-    return this.multipleSelection.reduce((totalMark: number, item: any) => totalMark + item.total_mark, 0)
+    return this.multipleSelection.reduce((totalMark: number, item: any) => totalMark + item.real_total_mark, 0)
   }
 
   addCustomer () {
