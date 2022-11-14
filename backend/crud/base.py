@@ -1,5 +1,6 @@
 import json
 from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
+from datetime import date
 
 from sqlalchemy.orm import Session
 
@@ -34,6 +35,9 @@ class CRUDBase:
 
     def create(self, db: Session, obj_in: dict) -> Any:
         # obj_in_data = jsonable_encoder(obj_in)
+        obj_in['daily_got_mark'] = {}
+        for i in range(0, obj_in['days']):
+            obj_in['daily_got_mark'][str(date.today())] = 0
         db_obj = self.model(**obj_in)  # type: ignore
         db.add(db_obj)
         db.commit()

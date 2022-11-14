@@ -15,6 +15,9 @@
       <el-form-item label="总分" prop="total_mark" required>
         <el-input v-model.number="form.total_mark"></el-input>
       </el-form-item>
+      <el-form-item label="天数" prop="days" required>
+        <el-input v-model.number="form.days"></el-input>
+      </el-form-item>
       <el-form-item label="url" prop="url" required>
         <el-input v-model="form.url" type="textarea"></el-input>
       </el-form-item>
@@ -57,7 +60,8 @@ export default class DialogCustomerAdd extends Vue {
     'subject_id': null,
     // eslint-disable-next-line quote-props
     'total_mark': 500,
-    url: null
+    url: null,
+    days: 1
   }
 
   subjects: any = []

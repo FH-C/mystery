@@ -1,6 +1,6 @@
 import time
 
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, String, Text, JSON
 
 from model import engine, Base
 from model.base import BaseModel
@@ -17,6 +17,8 @@ class Customer(Base, BaseModel):
     user_id = Column(Integer, index=True, nullable=True)
     real_accuracy = Column(Integer, nullable=True)
     real_total_mark = Column(Integer, index=True, default=0)
+    daily_got_mark = Column(JSON, index=True, default={})
+    days = Column(Integer, index=True, default=1)
 
     __tablename__ = 'customer'
 
