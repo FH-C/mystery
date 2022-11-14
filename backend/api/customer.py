@@ -96,3 +96,21 @@ def list_customer(db):
     except Exception as e:
         traceback.print_exc()
         abort(400)
+
+
+@customer_api.route('/test', methods=['GET'])
+@get_db
+def test(db):
+    data = customer_crud.set_days(db)
+    data = json.loads(data)
+    return jsonify({
+        'code': 0,
+        'data': {
+            'info': {
+                # 'items_count': count,
+                # 'page_count': page_count,
+                # 'per_page': int(limit)
+            },
+            'items': data
+        }
+    })

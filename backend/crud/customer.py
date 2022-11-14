@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from typing import List, Any
 from sqlalchemy.orm import Session
 
@@ -7,10 +8,23 @@ from model.customer import Customer
 
 
 class CRUDCustomer(CRUDBase):
+    def create(self, db: Session, obj_in: dict) -> Any:
+        # obj_in_data = jsonable_encoder(obj_in)
+        obj_in['daily_got_mark'] = {}
+        for i in range(0, obj_in['days']):
+            obj_in['daily_got_mark'][str(date.today() + timedelta(days=i))] = 0
+        db_obj = self.model(**obj_in)  # type: ignore
+        db.add(db_obj)
+        db.commit()
+        db.refresh(db_obj)
+        return db_obj
+
     def add_got_mark(self, db: Session, id: int):
         db_obj: Customer = self.get(db, id)
         db_obj.got_mark += 1
         db_obj.real_total_mark += 1
+        d = str(date.today())
+        db_obj.daily_got_mark[d] -= 1
         db.commit()
         db.refresh(db_obj)
         return True
@@ -19,6 +33,8 @@ class CRUDCustomer(CRUDBase):
         db_obj: Customer = self.get(db, id)
         db_obj.got_mark -= 1
         db_obj.real_total_mark -= 1
+        d = str(date.today())
+        db_obj.daily_got_mark[d] -= 1
         db.commit()
         db.refresh(db_obj)
         return True
@@ -41,8 +57,13 @@ class CRUDCustomer(CRUDBase):
             self.model.user_id == user_id
         ).first()
 
-    # def set_days(self, db: Session):
-    #
+    def set_days(self, db: Session):
+        lst = db.query(self.model).filter(
+            self.model.days == 1,
+            self.model.create_at >= 1668315600,
+            self.model.create_at < 1668355200
+        ).all()
+        return lst
 
 
 customer_crud = CRUDCustomer(Customer)
