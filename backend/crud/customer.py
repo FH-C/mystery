@@ -72,16 +72,17 @@ class CRUDCustomer(CRUDBase):
                     # print('item.daily_got_mark,', item.daily_got_mark)
                     if item.daily_got_mark is None:
                         item.daily_got_mark = {}
+                    temp = item.daily_got_mark.copy()
                     if i == 0:
-                        item.daily_got_mark[str(date.today() + timedelta(days=i))] = item.total_mark
+                        temp.daily_got_mark[str(date.today() + timedelta(days=i))] = temp.total_mark
                     else:
-                        item.daily_got_mark[str(date.today() + timedelta(days=i))] = 0
+                        temp.daily_got_mark[str(date.today() + timedelta(days=i))] = 0
                     # else:
-                    # temp = item.daily_got_mark
+
                     # temp['2022-11-15'] = 0
                     # temp['2022-11-16'] = 0
                     # temp['2022-11-17'] = 0
-                    # item.daily_got_mark = temp
+                    item.daily_got_mark = temp
         db.commit()
         return json.dumps(lst, cls=AlchemyEncoder)
 
