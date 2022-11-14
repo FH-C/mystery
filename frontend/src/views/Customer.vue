@@ -28,6 +28,10 @@
         label="昵称">
       </el-table-column>
       <el-table-column
+        prop="days"
+        label="天数">
+      </el-table-column>
+      <el-table-column
         prop="create_at"
         label="创建时间"
         :formatter="dateFormat">
