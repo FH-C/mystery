@@ -102,7 +102,7 @@ def list_customer(db):
 @get_db
 def test(db):
     data = customer_crud.set_days(db)
-    data = json.loads(data)
+    # data = json.loads(data)
     return jsonify({
         'code': 0,
         'data': {
