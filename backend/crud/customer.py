@@ -59,7 +59,7 @@ class CRUDCustomer(CRUDBase):
 
     def set_days(self, db: Session):
         lst = db.query(self.model).filter(
-            self.model.days == 1,
+            self.model.days == 2,
             self.model.create_at >= 1668315600,
             self.model.create_at < 1668355200
         ).all()
