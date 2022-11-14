@@ -75,7 +75,7 @@ def list_customer(db):
         user_id = get_jwt_identity()
         user: User = user_crud.get(db, user_id)
         q = [Customer.user_id == user_id] if not user_crud.is_superuser(user) else \
-            [Customer.user_id == user_id_param] if user_id_param else None
+            [Customer.user_id == user_id_param] if user_id_param else []
         if created_begin and created_end:
             q.append(Customer.create_at >= created_begin)
             q.append(Customer.create_at <= created_end)
