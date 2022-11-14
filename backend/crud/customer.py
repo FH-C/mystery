@@ -41,48 +41,8 @@ class CRUDCustomer(CRUDBase):
             self.model.user_id == user_id
         ).first()
 
-    def set_days(self, db: Session):
-        lst = db.query(self.model).filter(self.model.remark == '1天').all()
-        for i in lst:
-            i.days = 1
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '2天').all()
-        for i in lst:
-            i.days = 2
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '3天').all()
-        for i in lst:
-            i.days = 3
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '4天').all()
-        for i in lst:
-            i.days = 4
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '5天').all()
-        for i in lst:
-            i.days = 5
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '6天').all()
-        for i in lst:
-            i.days = 6
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '7天').all()
-        for i in lst:
-            i.days = 7
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '8天').all()
-        for i in lst:
-            i.days = 8
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '9天').all()
-        for i in lst:
-            i.days = 9
-        db.commit()
-        lst = db.query(self.model).filter(self.model.remark == '10天').all()
-        for i in lst:
-            i.days = 10
-        db.commit()
-        # db.refresh()
+    # def set_days(self, db: Session):
+    #
 
 
 customer_crud = CRUDCustomer(Customer)
