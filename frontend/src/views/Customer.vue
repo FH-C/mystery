@@ -32,6 +32,12 @@
         label="天数">
       </el-table-column>
       <el-table-column
+        label="详细">
+        <template v-slot="{row}">
+          <div v-for="(v, k) in row" :key="k">{{`${k}: ${v}`}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="create_at"
         label="创建时间"
         :formatter="dateFormat">
