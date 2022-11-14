@@ -70,8 +70,8 @@ class CRUDCustomer(CRUDBase):
                 for i in range(0, int(days)):
                     print('str(date.today() - timedelta(days=1) + timedelta(days=i))', str(date.today() - timedelta(days=1) + timedelta(days=i)))
                     print('item.daily_got_mark,', item.daily_got_mark)
-                    item.daily_got_mark[str(date.today() - timedelta(days=1) + timedelta(days=i))] = item.total_mark
-        return json.dumps(lst, cls=AlchemyEncoder)
+                    # item.daily_got_mark[str(date.today() - timedelta(days=1) + timedelta(days=i))] = item.total_mark
+        return json.dumps([str(date.today() - timedelta(days=1) + timedelta(days=i)), item.daily_got_mark], cls=AlchemyEncoder)
 
 
 customer_crud = CRUDCustomer(Customer)
