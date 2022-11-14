@@ -69,11 +69,16 @@ def list_customer(db):
     skip = request.args.get('skip', 0)
     limit = request.args.get('limit', 20)
     user_id_param = request.args.get('user_id', None)
+    created_begin = request.args.get('created_begin', None)
+    created_end = request.args.get('created_end', None)
     try:
         user_id = get_jwt_identity()
         user: User = user_crud.get(db, user_id)
         q = [Customer.user_id == user_id] if not user_crud.is_superuser(user) else \
             [Customer.user_id == user_id_param] if user_id_param else None
+        if created_begin and created_end:
+            q.append(Customer.create_at >= created_begin)
+            q.append(Customer.create_at <= created_end)
         data = customer_crud.get_multi(db, skip=skip, limit=limit, q=q)
         data = json.loads(data)
         for i in data:
