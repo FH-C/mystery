@@ -62,8 +62,8 @@ class CRUDCustomer(CRUDBase):
     def set_days(self, db: Session, days):
         lst = db.query(self.model).filter(
             self.model.days == days,
-            self.model.create_at >= 1668315600,
-            self.model.create_at < 1668355200
+            self.model.create_at >= 1668355200,
+            # self.model.create_at < 1668355200
         ).all()
         for item in lst:
             if item.got_mark:
@@ -72,14 +72,16 @@ class CRUDCustomer(CRUDBase):
                     # print('item.daily_got_mark,', item.daily_got_mark)
                     if item.daily_got_mark is None:
                         item.daily_got_mark = {}
-                    # if i == 0 or i == 1:
-                    #     item.daily_got_mark[str(date.today() - timedelta(days=1) + timedelta(days=i))] = item.total_mark
+                    if i == 0:
+                        item.daily_got_mark[str(date.today() + timedelta(days=i))] = item.total_mark
+                    else:
+                        item.daily_got_mark[str(date.today() + timedelta(days=i))] = 0
                     # else:
-                    temp = item.daily_got_mark
-                    temp['2022-11-15'] = 0
-                    temp['2022-11-16'] = 0
+                    # temp = item.daily_got_mark
+                    # temp['2022-11-15'] = 0
+                    # temp['2022-11-16'] = 0
                     # temp['2022-11-17'] = 0
-                    item.daily_got_mark = temp
+                    # item.daily_got_mark = temp
         db.commit()
         return json.dumps(lst, cls=AlchemyEncoder)
 
