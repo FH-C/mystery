@@ -70,14 +70,16 @@ class CRUDCustomer(CRUDBase):
                 for i in range(0, int(days)):
                     # print('str(date.today() - timedelta(days=1) + timedelta(days=i))', str(date.today() - timedelta(days=1) + timedelta(days=i)))
                     # print('item.daily_got_mark,', item.daily_got_mark)
-                    if item.daily_got_mark == None:
+                    if item.daily_got_mark is None:
                         item.daily_got_mark = {}
                     # if i == 0 or i == 1:
                     #     item.daily_got_mark[str(date.today() - timedelta(days=1) + timedelta(days=i))] = item.total_mark
                     # else:
-                    item.daily_got_mark['2022-11-15'] = 0
-                    item.daily_got_mark['2022-11-16'] = 0
-                    item.daily_got_mark['2022-11-17'] = 0
+                    temp = item.daily_got_mark
+                    temp['2022-11-15'] = 0
+                    temp['2022-11-16'] = 0
+                    # temp['2022-11-17'] = 0
+                    item.daily_got_mark = temp
         db.commit()
         return json.dumps(lst, cls=AlchemyEncoder)
 
