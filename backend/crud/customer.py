@@ -27,6 +27,8 @@ class CRUDCustomer(CRUDBase):
         db_obj.real_total_mark += 1
         d = str(date.today())
         temp = db_obj.daily_got_mark.copy()
+        if temp[d] is None:
+            temp[d] = 0
         temp[d] += 1
         db_obj.daily_got_mark = temp
         db.commit()
@@ -39,6 +41,8 @@ class CRUDCustomer(CRUDBase):
         db_obj.real_total_mark -= 1
         d = str(date.today())
         temp = db_obj.daily_got_mark.copy()
+        if temp[d] is None:
+            temp[d] = 0
         temp[d] -= 1
         db_obj.daily_got_mark = temp
         db.commit()
