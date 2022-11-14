@@ -1,0 +1,42 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 193, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/__main__.py", line 29, in <module>
+    from pip._internal.cli.main import main as _main
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/cli/main.py", line 9, in <module>
+    from pip._internal.cli.autocompletion import autocomplete
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/cli/autocompletion.py", line 10, in <module>
+    from pip._internal.cli.main_parser import create_main_parser
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/cli/main_parser.py", line 8, in <module>
+    from pip._internal.cli import cmdoptions
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/cli/cmdoptions.py", line 24, in <module>
+    from pip._internal.cli.parser import ConfigOptionParser
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/cli/parser.py", line 12, in <module>
+    from pip._internal.configuration import Configuration, ConfigurationError
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/configuration.py", line 26, in <module>
+    from pip._internal.utils.logging import getLogger
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/utils/logging.py", line 29, in <module>
+    from pip._internal.utils.misc import ensure_dir
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/utils/misc.py", line 42, in <module>
+    from pip._internal.locations import get_major_minor_version
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/locations/__init__.py", line 67, in <module>
+    from . import _distutils
+  File "/root/.local/share/pypoetry/venv/lib/python3.8/site-packages/pip/_internal/locations/_distutils.py", line 20, in <module>
+    from distutils.cmd import Command as DistutilsCommand
+ModuleNotFoundError: No module named 'distutils.cmd'
+
+Traceback:
+
+  File "<stdin>", line 919, in main
+  File "<stdin>", line 550, in run
+  File "<stdin>", line 571, in install
+  File "/usr/lib/python3.8/contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "<stdin>", line 643, in make_env
+  File "<stdin>", line 629, in make_env
+  File "<stdin>", line 344, in make
+  File "<stdin>", line 367, in pip
+  File "<stdin>", line 364, in python
+  File "<stdin>", line 357, in run

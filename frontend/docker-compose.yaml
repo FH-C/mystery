@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    command: redis-server --port 6379 --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - /root/data/redis:/data
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123zscvAf12as5
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+    - 5432:5432
+    volumes:
+      - /root/data/postgres/data:/var/lib/postgresql/data
+      - /root/data/postgres:/var/lib/postgresql
+      - /root/mystery/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+
+
