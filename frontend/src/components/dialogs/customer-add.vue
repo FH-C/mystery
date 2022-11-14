@@ -148,7 +148,8 @@ export default class DialogCustomerAdd extends Vue {
       'subject_id': null,
       // eslint-disable-next-line quote-props
       'total_mark': 500,
-      url: null
+      url: null,
+      days: 1
     }
   }
 }
