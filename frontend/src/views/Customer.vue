@@ -145,7 +145,7 @@ export default class Customer extends Vue {
   @Watch('currentUserId')
   @Watch('createAt')
   @Watch('urlSearch')
-  changePage() {
+  changePage () {
     this.currentPage = 1
   }
 
