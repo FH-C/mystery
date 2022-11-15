@@ -96,7 +96,7 @@ class CRUDCustomer(CRUDBase):
 
     def restart(self, db: Session):
         lst = db.query(self.model).filter(
-            self.model.days == 3 || self.model.days == 4 || self.model.days == 5,
+            self.model.days == 3 or self.model.days == 4 or self.model.days == 5,
             self.model.create_at >= 1668315451,
             self.model.create_at < 1668355200
         ).all()
