@@ -21,6 +21,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "^4.5.0",
