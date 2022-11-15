@@ -108,6 +108,8 @@ def crawler(db, customer_id: int):
                     'choice': true_choice,
                     'subject_id': subject_id
                 }
+                if '刷题' in question:
+                    data['choice'] = choice
                 if true_choice != '':
                     answer_crud.create_or_update(db, data)
                 got_mark = customer.got_mark
