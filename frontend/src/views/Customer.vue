@@ -25,6 +25,7 @@
       :data="customerList"
       style="width: 100%"
       :row-key="getRowKey"
+      v-loading="loading"
       @selection-change="handleSelectionChange">
       <el-table-column
         type="selection"
@@ -130,12 +131,14 @@ export default class Customer extends Vue {
   users = []
   currentUserId = null
   createAt = [] as any[]
+  loading = false
 
   @Watch('currentPage')
   @Watch('change')
   @Watch('currentUserId')
   @Watch('createAt')
   async getAllCustomerData () {
+    this.loading = true
     const skip = (this.currentPage - 1) * this.pageSize
     try {
       // eslint-disable-next-line quote-props
@@ -150,6 +153,7 @@ export default class Customer extends Vue {
       )
       this.customerList = (res as any).data.data.items as any
       this.totalPage = Number((res as any).data.data.info.items_count)
+      this.loading = false
     } catch (err) {
       return this.$router.push({ name: 'Login' })
     }

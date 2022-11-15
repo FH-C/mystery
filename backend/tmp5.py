@@ -1,5 +1,8 @@
-import re
+import time
+from datetime import datetime, timedelta
 
-if '刷题' in '123刷题132':
-    choice = re.search('[A-F]', '1231241C').group(0)
-    print(choice)
+d = datetime.today().date() - timedelta(days=2)
+print(str(d))
+dt = int(time.mktime(time.strptime(str(d), '%Y-%m-%d')))
+
+print(dt)
