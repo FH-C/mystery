@@ -104,10 +104,11 @@ class CRUDCustomer(CRUDBase):
             ).all()
             for item in lst:
                 if item.daily_got_mark.get(str(date.today()), 0) < item.total_mark and item.real_total_mark < item.total_mark * item.days:
-                    print('daily_got_mark: ', item.daily_got_mark.get(str(date.today()), 0), '\n')
-                    print('total_mark: ', item.total_mark, '\n')
-                    print('real_total_mark: ', item.real_total_mark, '\n')
-                    print('days: ', item.days, '\n')
+                    print('daily_got_mark: ', item.daily_got_mark)
+                    print('daily_got_mark: ', item.daily_got_mark.get(str(date.today()), 0))
+                    print('total_mark: ', item.total_mark)
+                    print('real_total_mark: ', item.real_total_mark)
+                    print('days: ', item.days)
             #         item.got_mark = 0
             # db.commit()
             # from celery_core.crawler import crawler
