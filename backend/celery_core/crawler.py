@@ -77,6 +77,11 @@ def crawler(db, customer_id: int):
                     choice = 'A'
                 if (now_ / total_tmp * 100) > accuracy + 2:
                     choice = 'A'
+                if '刷题' in question:
+                    try:
+                        choice = re.search('[A-F]', question).group(0)
+                    except:
+                        choice = 'C'
                 response2 = requests.post(url=choice_url,
                                           data={'answer': choice, 'courseId': subject_id, 'uuid': uuid},
                                           headers=headers)
