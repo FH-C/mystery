@@ -139,19 +139,24 @@ export default class Customer extends Vue {
   @Watch('currentPage')
   @Watch('change')
   getAllCustomerData () {
-    this.loadData()
+    this.dLoadData()
   }
 
   @Watch('currentUserId')
   @Watch('createAt')
   @Watch('urlSearch')
   changePage () {
+    if (this.currentPage === 1) {
+      this.dLoadData()
+    }
     this.currentPage = 1
   }
 
   async added () {
-    await this.getAllCustomerData()
+    this.getAllCustomerData()
   }
+
+  dLoadData = debounce(this.loadData, 300)
 
   loadData () {
     this.loading = true
@@ -262,7 +267,7 @@ export default class Customer extends Vue {
 
   async intervalGetData () {
     this.timer = setInterval(async () => {
-      await this.getAllCustomerData()
+      this.getAllCustomerData()
     }, 1000 * 12)
   }
 
@@ -282,7 +287,7 @@ export default class Customer extends Vue {
   }
 
   async created () {
-    await this.getAllCustomerData()
+    this.getAllCustomerData()
     await this.getSubjectInfo()
     await this.intervalGetData()
     await this.getAllUsers()
