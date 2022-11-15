@@ -10,7 +10,11 @@ from utils import security
 from utils.decorator import get_db
 
 @get_db
-def set_days(db) -> Any:
-    crud.customer_crud.set_days(
+def restart(db) -> Any:
+    res = crud.customer_crud.restart(
         db
     )
+    print(json.loads(res))
+
+if __name__ == '__main__':
+    restart()
