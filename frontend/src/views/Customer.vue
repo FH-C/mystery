@@ -153,29 +153,28 @@ export default class Customer extends Vue {
     await this.getAllCustomerData()
   }
 
-  loadData = debounce(() => {
+  loadData () {
     this.loading = true
     const skip = (this.currentPage - 1) * this.pageSize
-    const that = this
     // eslint-disable-next-line quote-props
     getAllCustomer(
       {
         skip: skip,
-        limit: that.pageSize,
-        userId: that.currentUserId,
-        createdBegin: Math.floor(that.createAt[0]?.getTime() / 1000) || undefined,
+        limit: this.pageSize,
+        userId: this.currentUserId,
+        createdBegin: Math.floor(this.createAt[0]?.getTime() / 1000) || undefined,
         createdEnd: Math.floor(this.createAt[1]?.getTime() / 1000) || undefined,
         url: this.urlSearch || undefined
       }
     ).then((res) => {
-      that.customerList = (res as any).data.data.items as any
-      that.totalPage = Number((res as any).data.data.info.items_count)
-      that.loading = false
+      this.customerList = (res as any).data.data.items as any
+      this.totalPage = Number((res as any).data.data.info.items_count)
+      this.loading = false
     }).catch(err => {
       console.log(err)
-      return that.$router.push({ name: 'Login' })
+      return this.$router.push({ name: 'Login' })
     })
-  }, 300)
+  }
 
   getRowKey (row: any) {
     return row.id
