@@ -21,6 +21,7 @@
       end-placeholder="结束日期"
       align="right">
     </el-date-picker>
+    <el-input v-model="urlSearch" placeholder="根据url搜索"></el-input>
     <el-table
       :data="customerList"
       style="width: 100%"
@@ -109,6 +110,7 @@ import { getAllUsersApi } from '../api/http/userApi'
 import DialogCustomerAdd from '@/components/dialogs/customer-add.vue'
 import DialogPasswordReset from '@/components/dialogs/reset-password.vue'
 import dayjs from 'dayjs'
+import { debounce } from 'lodash-es'
 
 @Component({
   components: {
@@ -132,36 +134,46 @@ export default class Customer extends Vue {
   currentUserId = null
   createAt = [] as any[]
   loading = false
+  urlSearch = ''
 
   @Watch('currentPage')
   @Watch('change')
+  getAllCustomerData () {
+    this.loadData()
+  }
+
   @Watch('currentUserId')
   @Watch('createAt')
-  async getAllCustomerData () {
-    this.loading = true
-    const skip = (this.currentPage - 1) * this.pageSize
-    try {
-      // eslint-disable-next-line quote-props
-      const res = await getAllCustomer(
-        {
-          skip: skip,
-          limit: this.pageSize,
-          userId: this.currentUserId,
-          createdBegin: Math.floor(this.createAt[0]?.getTime() / 1000) || undefined,
-          createdEnd: Math.floor(this.createAt[1]?.getTime() / 1000) || undefined
-        }
-      )
-      this.customerList = (res as any).data.data.items as any
-      this.totalPage = Number((res as any).data.data.info.items_count)
-      this.loading = false
-    } catch (err) {
-      return this.$router.push({ name: 'Login' })
-    }
+  @Watch('urlSearch')
+  async changePage() {
+    this.currentPage = 1
   }
 
   async added () {
     await this.getAllCustomerData()
   }
+
+  loadData = debounce(() => {
+    this.loading = true
+    const skip = (this.currentPage - 1) * this.pageSize
+      // eslint-disable-next-line quote-props
+    getAllCustomer(
+      {
+        skip: skip,
+        limit: this.pageSize,
+        userId: this.currentUserId,
+        createdBegin: Math.floor(this.createAt[0]?.getTime() / 1000) || undefined,
+        createdEnd: Math.floor(this.createAt[1]?.getTime() / 1000) || undefined,
+        url: this.urlSearch || undefined
+      }
+    ).then((res) => {
+      this.customerList = (res as any).data.data.items as any
+      this.totalPage = Number((res as any).data.data.info.items_count)
+      this.loading = false
+    }).catch(err => {
+      return this.$router.push({ name: 'Login' })
+    })
+  }, 300)
 
   getRowKey (row: any) {
     return row.id

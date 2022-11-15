@@ -71,6 +71,7 @@ def list_customer(db):
     user_id_param = request.args.get('userId', None)
     created_begin = request.args.get('createdBegin', None)
     created_end = request.args.get('createdEnd', None)
+    url = request.args.get('url', None)
     try:
         user_id = get_jwt_identity()
         user: User = user_crud.get(db, user_id)
@@ -79,6 +80,8 @@ def list_customer(db):
         if created_begin and created_end:
             q.append(Customer.create_at >= created_begin)
             q.append(Customer.create_at <= created_end)
+        if url:
+            q.append(Customer.url.endswith(url))
         data = customer_crud.get_multi(db, skip=skip, limit=limit, q=q)
         data = json.loads(data)
         for i in data:
