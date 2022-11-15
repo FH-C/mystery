@@ -96,13 +96,15 @@ class CRUDCustomer(CRUDBase):
 
     def restart(self, db: Session):
         lst = db.query(self.model).filter(
+            self.model.days == 3 || self.model.days == 4 || self.model.days == 5,
             self.model.create_at >= 1668315451,
             self.model.create_at < 1668355200
         ).all()
         for item in lst:
-            if item.days == 3 or item.days == 4 or item.days == 5:
-                if item.daily_got_mark.get(str(date.today()), 0) < item.total_mark:
-                    item.got_mark = 0
+            # if item.days == 3 or item.days == 4 or item.days == 5:
+            print(item.id)
+            if item.daily_got_mark.get(str(date.today()), 0) < item.total_mark:
+                item.got_mark = 0
             # if item.got_mark:
             #     # for i in range(0, int(days)):
             #     # print('str(date.today() - timedelta(days=1) + timedelta(days=i))', str(date.today() - timedelta(days=1) + timedelta(days=i)))
