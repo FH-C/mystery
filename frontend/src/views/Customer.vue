@@ -145,7 +145,7 @@ export default class Customer extends Vue {
   @Watch('currentUserId')
   @Watch('createAt')
   @Watch('urlSearch')
-  async changePage() {
+  changePage() {
     this.currentPage = 1
   }
 
@@ -156,7 +156,7 @@ export default class Customer extends Vue {
   loadData = debounce(() => {
     this.loading = true
     const skip = (this.currentPage - 1) * this.pageSize
-      // eslint-disable-next-line quote-props
+    // eslint-disable-next-line quote-props
     getAllCustomer(
       {
         skip: skip,
@@ -171,6 +171,7 @@ export default class Customer extends Vue {
       this.totalPage = Number((res as any).data.data.info.items_count)
       this.loading = false
     }).catch(err => {
+      console.log(err)
       return this.$router.push({ name: 'Login' })
     })
   }, 300)
