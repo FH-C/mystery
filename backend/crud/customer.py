@@ -96,6 +96,7 @@ class CRUDCustomer(CRUDBase):
         return json.dumps(lst, cls=AlchemyEncoder)
 
     def create_daily_task(self, db: Session):
+        ids = []
         for i in range(1, 5):
             lst = db.query(self.model).filter(
                 self.model.days >= max(2, i),
@@ -104,19 +105,18 @@ class CRUDCustomer(CRUDBase):
             ).all()
             for item in lst:
                 if item.daily_got_mark.get(str(date.today()), 0) < item.total_mark and item.real_total_mark < item.total_mark * item.days:
-                    print('id: ', item.id)
-                    print('daily_got_mark: ', item.daily_got_mark)
-                    print('daily_got_mark: ', item.daily_got_mark.get(str(date.today()), 0))
-                    print('total_mark: ', item.total_mark)
-                    print('real_total_mark: ', item.real_total_mark)
-                    print('days: ', item.days)
-            #         item.got_mark = 0
-            # db.commit()
-            # from celery_core.crawler import crawler
-            # for item in lst:
-            #     crawler.delay(item.id)
-            # return json.dumps(lst, cls=AlchemyEncoder)
-
+                    # print('id: ', item.id)
+                    # print('daily_got_mark: ', item.daily_got_mark)
+                    # print('daily_got_mark: ', item.daily_got_mark.get(str(date.today()), 0))
+                    # print('total_mark: ', item.total_mark)
+                    # print('real_total_mark: ', item.real_total_mark)
+                    # print('days: ', item.days)
+                    item.got_mark = 0
+            db.commit()
+            from celery_core.crawler import crawler
+            for item in lst:
+                crawler.delay(item.id)
+            return json.dumps(lst, cls=AlchemyEncoder)
 
 
 customer_crud = CRUDCustomer(Customer)

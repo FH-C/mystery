@@ -15,7 +15,7 @@ def restart(db) -> Any:
     res = crud.customer_crud.create_daily_task(
         db
     )
-    # print(json.loads(res))
+    print(json.loads(res))
 
 
 if __name__ == '__main__':
