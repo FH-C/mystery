@@ -104,6 +104,7 @@ class CRUDCustomer(CRUDBase):
             ).all()
             for item in lst:
                 if item.daily_got_mark.get(str(date.today()), 0) < item.total_mark and item.real_total_mark < item.total_mark * item.days:
+                    print('id: ', item.id)
                     print('daily_got_mark: ', item.daily_got_mark)
                     print('daily_got_mark: ', item.daily_got_mark.get(str(date.today()), 0))
                     print('total_mark: ', item.total_mark)
