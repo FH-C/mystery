@@ -111,7 +111,7 @@ class CRUDCustomer(CRUDBase):
                     # print('total_mark: ', item.total_mark)
                     # print('real_total_mark: ', item.real_total_mark)
                     # print('days: ', item.days)
-                    item.got_mark = 0
+                    item.got_mark = item.total_mark - min(item.total_mark, item.days * item.total_mark - item.real_total_mark)
             db.commit()
             from celery_core.crawler import crawler
             for item in lst:
