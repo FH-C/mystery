@@ -85,7 +85,7 @@ def crawler(db, customer_id: int):
                     except:
                         choice = 'C'
                 if '刷题' in question:
-                    await asyncio.sleep(4)
+                    time.sleep(4)
                     continue
                 response2 = requests.post(url=choice_url,
                                           data={'answer': choice, 'courseId': subject_id, 'uuid': uuid},
