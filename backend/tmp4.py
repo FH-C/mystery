@@ -12,7 +12,7 @@ from utils.decorator import get_db
 
 @get_db
 def restart(db) -> Any:
-    res = crud.customer_crud.create_daily_task(
+    res = crud.customer_crud.create_daily_task2(
         db
     )
     print(res)
