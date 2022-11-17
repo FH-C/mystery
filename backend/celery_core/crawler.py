@@ -65,8 +65,11 @@ def crawler(db, customer_id: int):
 
         total_tmp = 1
         now_ = 0
+        failed_count = 0
         try:
             while got_mark < total_mark:
+                if failed_count >= 10:
+                    break
                 response = requests.post(url=question_url, data={'courseId': subject_id}, headers=headers)
                 print(response.text)
                 question_json = response.json()
@@ -85,6 +88,7 @@ def crawler(db, customer_id: int):
                     except:
                         choice = 'C'
                 if '刷题' in question:
+                    failed_count += 1
                     time.sleep(4)
                     continue
                 response2 = requests.post(url=choice_url,
