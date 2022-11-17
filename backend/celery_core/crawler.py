@@ -1,4 +1,6 @@
+import asyncio
 import traceback
+from random import randint
 
 import requests
 import re
@@ -52,14 +54,14 @@ def crawler(db, customer_id: int):
             'User-Agent': 'Mozilla/5.0 (Linux; Android 5.1.1; vivo x6s a Build/LYZ28N) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/39.0.0.0 Mobile Safari/537.36 yiban_android',
             'Host': 'qm.linyisong.top',
             'Origin': 'http://qm.linyisong.top',
-            'Referer': 'http://qm.linyisong.top/yiban-web/stu/toSubject.jhtml?courseId=7',
+            'Referer': 'http://qm.linyisong.top/yiban-web/stu/toSubject.jhtml?courseId=' + str(subject_id),
             'Cookie': cookie,
             'Accept': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
             'Accept-Language': 'zh-CN,zh;q=0.9'
         }
-        question_url = 'http://qm.linyisong.top/yiban-web/stu/nextSubject.jhtml?_=1549905749917'
-        choice_url = 'http://qm.linyisong.top/yiban-web/stu/changeSituation.jhtml?_=1545318034464'
+        question_url = 'http://qm.linyisong.top/yiban-web/stu/nextSubject.jhtml?_=' + str(int(time.time()) * 1000 + randint(0, 1000))
+        choice_url = 'http://qm.linyisong.top/yiban-web/stu/changeSituation.jhtml?_=' + str(int(time.time()) * 1000 + randint(0, 1000))
 
         total_tmp = 1
         now_ = 0
@@ -82,6 +84,9 @@ def crawler(db, customer_id: int):
                         choice = re.search('[A-F]', question).group(0)
                     except:
                         choice = 'C'
+                if '刷题' in question:
+                    await asyncio.sleep(4)
+                    continue
                 response2 = requests.post(url=choice_url,
                                           data={'answer': choice, 'courseId': subject_id, 'uuid': uuid},
                                           headers=headers)

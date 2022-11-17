@@ -1,8 +1,4 @@
 import time
-from datetime import datetime, timedelta
+from random import randint
 
-d = datetime.today().date() - timedelta(days=2)
-print(str(d))
-dt = int(time.mktime(time.strptime(str(d), '%Y-%m-%d')))
-
-print(dt)
+print(int(time.time()) * 1000 + randint(0, 1000))
