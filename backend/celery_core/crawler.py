@@ -34,7 +34,7 @@ def crawler(db, customer_id: int):
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
         }
         response_1 = requests.post(url=url, headers=headers_1)
-        print(response_1.text)
+        # print(response_1.text)
         cookies = response_1.cookies.get_dict()
         headers_2 = {
             'Connection': 'keep-alive',
@@ -47,7 +47,7 @@ def crawler(db, customer_id: int):
         }
 
         response_2 = requests.post(url=url, headers=headers_2)
-        print(response_2.text)
+        # print(response_2.text)
         cookie = 'JSESSIONID=' + cookies['JSESSIONID']
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
