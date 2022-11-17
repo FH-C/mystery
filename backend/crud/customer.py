@@ -104,6 +104,32 @@ class CRUDCustomer(CRUDBase):
                 self.model.create_at < get_before_today_end_timestamp(i)
             ).all()
             for item in lst:
+                if item.daily_got_mark.get(str(date.today()),
+                                           0) < item.total_mark and item.real_total_mark < item.total_mark * item.days:
+                    # print('id: ', item.id)
+                    # print('daily_got_mark: ', item.daily_got_mark)
+                    # print('daily_got_mark: ', item.daily_got_mark.get(str(date.today()), 0))
+                    # print('total_mark: ', item.total_mark)
+                    # print('real_total_mark: ', item.real_total_mark)
+                    # print('days: ', item.days)
+                    item.got_mark = item.total_mark - min(item.total_mark,
+                                                          item.days * item.total_mark - item.real_total_mark)
+                    ids.append(item.id)
+            db.commit()
+            from celery_core.crawler import crawler
+            for item in lst:
+                crawler.delay(item.id)
+        return ids
+
+    def query_daily_task(self, db: Session):
+        ids = []
+        for i in range(1, 5):
+            lst = db.query(self.model).filter(
+                self.model.days >= max(2, i),
+                self.model.create_at >= get_before_today_start_timestamp(i),
+                self.model.create_at < get_before_today_end_timestamp(i)
+            ).all()
+            for item in lst:
                 if item.daily_got_mark.get(str(date.today()), 0) < item.total_mark and item.real_total_mark < item.total_mark * item.days:
                     # print('id: ', item.id)
                     # print('daily_got_mark: ', item.daily_got_mark)
@@ -111,12 +137,12 @@ class CRUDCustomer(CRUDBase):
                     # print('total_mark: ', item.total_mark)
                     # print('real_total_mark: ', item.real_total_mark)
                     # print('days: ', item.days)
-                    item.got_mark = item.total_mark - min(item.total_mark, item.days * item.total_mark - item.real_total_mark)
+                    # item.got_mark = item.total_mark - min(item.total_mark, item.days * item.total_mark - item.real_total_mark)
                     ids.append(item.id)
-            db.commit()
-            from celery_core.crawler import crawler
-            for item in lst:
-                crawler.delay(item.id)
+            # db.commit()
+            # from celery_core.crawler import crawler
+            # for item in lst:
+            #     crawler.delay(item.id)
         return ids
 
 
