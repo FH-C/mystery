@@ -112,11 +112,12 @@ class CRUDCustomer(CRUDBase):
                     # print('real_total_mark: ', item.real_total_mark)
                     # print('days: ', item.days)
                     item.got_mark = item.total_mark - min(item.total_mark, item.days * item.total_mark - item.real_total_mark)
+                    ids.append(item.id)
             db.commit()
             from celery_core.crawler import crawler
             for item in lst:
                 crawler.delay(item.id)
-            return json.dumps(lst, cls=AlchemyEncoder)
+        return ids
 
 
 customer_crud = CRUDCustomer(Customer)
