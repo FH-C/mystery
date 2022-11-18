@@ -97,7 +97,7 @@ class CRUDCustomer(CRUDBase):
 
     def create_daily_task(self, db: Session):
         ids = []
-        for i in range(1, 5):
+        for i in range(1, 6):
             lst = db.query(self.model).filter(
                 self.model.days >= max(2, i),
                 self.model.create_at >= get_before_today_start_timestamp(i),
