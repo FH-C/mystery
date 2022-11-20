@@ -25,7 +25,7 @@ def crawler(db, customer_id: int):
         total_mark = customer.total_mark
         accuracy = customer.accuracy
         got_mark = customer.got_mark
-        print('customer_id', customer_id)
+        print(customer_id)
         headers_1 = {
             'Connection': 'keep-alive',
             'User-Agent': 'Mozilla/5.0 (Linux; Android 12; 22041211AC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Mobile Safari/537.36 yiban_android',
@@ -37,6 +37,7 @@ def crawler(db, customer_id: int):
         response_1 = requests.post(url=url, headers=headers_1)
         # print(response_1.text)
         cookies = response_1.cookies.get_dict()
+        print(cookies)
         headers_2 = {
             'Connection': 'keep-alive',
             'User-Agent': 'Mozilla/5.0 (Linux; Android 12; 22041211AC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Mobile Safari/537.36 yiban_android',
