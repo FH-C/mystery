@@ -25,6 +25,7 @@ def crawler(db, customer_id: int):
         total_mark = customer.total_mark
         accuracy = customer.accuracy
         got_mark = customer.got_mark
+        print('customer_id', customer_id)
         headers_1 = {
             'Connection': 'keep-alive',
             'User-Agent': 'Mozilla/5.0 (Linux; Android 12; 22041211AC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Mobile Safari/537.36 yiban_android',
