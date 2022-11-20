@@ -27,7 +27,7 @@ def crawler(db, customer_id: int):
         got_mark = customer.got_mark
         headers_1 = {
             'Connection': 'keep-alive',
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 5.1.1; vivo x6s a Build/LYZ28N) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/39.0.0.0 Mobile Safari/537.36 yiban_android',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 12; 22041211AC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Mobile Safari/537.36 yiban_android',
             'Accept-Encoding': 'gzip, deflate',
             'Host': 'qm.linyisong.top',
             'Upgrade-Insecure-Requests': '1',
@@ -38,7 +38,7 @@ def crawler(db, customer_id: int):
         cookies = response_1.cookies.get_dict()
         headers_2 = {
             'Connection': 'keep-alive',
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 5.1.1; vivo x6s a Build/LYZ28N) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/39.0.0.0 Mobile Safari/537.36 yiban_android',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 12; 22041211AC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Mobile Safari/537.36 yiban_android',
             'Accept-Encoding': 'gzip, deflate',
             'Host': 'qm.linyisong.top',
             'Cookie': 'JSESSIONID=' + cookies['JSESSIONID'] + '; Path=/yiban-web; HttpOnly',
@@ -51,7 +51,7 @@ def crawler(db, customer_id: int):
         cookie = 'JSESSIONID=' + cookies['JSESSIONID']
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 5.1.1; vivo x6s a Build/LYZ28N) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/39.0.0.0 Mobile Safari/537.36 yiban_android',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 12; 22041211AC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Mobile Safari/537.36 yiban_android',
             'Host': 'qm.linyisong.top',
             'Origin': 'http://qm.linyisong.top',
             'Referer': 'http://qm.linyisong.top/yiban-web/stu/toSubject.jhtml?courseId=' + str(subject_id),
@@ -123,7 +123,7 @@ def crawler(db, customer_id: int):
                     answer_crud.create_or_update(db, data)
                 got_mark = customer.got_mark
                 total_tmp += 1
-                time.sleep(1)
+                time.sleep(8)
             customer_crud.set_real_accuracy(db, customer_id, (now_ / total_tmp * 100))
 
         except Exception as e:
