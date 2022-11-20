@@ -1,4 +1,5 @@
 import asyncio
+import random
 import traceback
 from random import randint
 
@@ -85,14 +86,15 @@ def crawler(db, customer_id: int):
                 if (now_ / total_tmp * 100) > accuracy + 2:
                     choice = 'A'
                 if '刷题' in question:
-                    try:
-                        choice = re.search('[A-F]', question).group(0)
-                    except:
-                        choice = 'C'
-                if '刷题' in question:
-                    failed_count += 1
-                    time.sleep(4)
-                    continue
+                    if random.random() > 0.5:
+                        failed_count += 1
+                        time.sleep(4)
+                        continue
+                    else:
+                        try:
+                            choice = re.search('[A-F]', question).group(0)
+                        except:
+                            choice = 'C'
                 response2 = requests.post(url=choice_url,
                                           data={'answer': choice, 'courseId': subject_id, 'uuid': uuid},
                                           headers=headers)
