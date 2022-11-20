@@ -75,7 +75,10 @@ def crawler(db, customer_id: int):
                     break
                 response = requests.post(url=question_url, data={'courseId': subject_id}, headers=headers)
                 print(response.text)
-                question_json = response.json()
+                try:
+                    question_json = response.json()
+                except:
+                    continue
                 uuid = question_json.get('data', {}).get('uuid', '')
                 question = question_json.get('data', {}).get('nextSubject', {}).get('subDescript', '')
                 answer = answer_crud.get_answer_by_question_subject_id(db, question, subject_id)
@@ -99,7 +102,10 @@ def crawler(db, customer_id: int):
                                           data={'answer': choice, 'courseId': subject_id, 'uuid': uuid},
                                           headers=headers)
 
-                answer_json = response2.json()
+                try:
+                    answer_json = response2.json()
+                except:
+                    continue
                 is_true = answer_json.get('data', {}).get('rightAnswer', None)
                 if is_true is None:
                     print(answer_json)
