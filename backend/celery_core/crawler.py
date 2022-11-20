@@ -95,10 +95,7 @@ def crawler(db, customer_id: int):
                                           data={'answer': choice, 'courseId': subject_id, 'uuid': uuid},
                                           headers=headers)
 
-                try:
-                    answer_json = response2.json()
-                except:
-                    continue
+                answer_json = response2.json()
                 is_true = answer_json.get('data', {}).get('rightAnswer', None)
                 if is_true is None:
                     print(answer_json)
